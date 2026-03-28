@@ -65,12 +65,13 @@ def draw_text_pil(img, text, position, font_size=36, color=(255, 255, 255), alph
     overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
     draw = ImageDraw.Draw(overlay)
 
-    # フォント（システムフォントを探索）
+    # フォント（Noto Serif CJK JP 明朝体を優先）
     font_paths = [
-        "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
+        "/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc",
+        "/usr/share/fonts/opentype/noto/NotoSerifCJK-Medium.ttc",
+        "/usr/share/fonts/opentype/noto/NotoSerifCJK-Light.ttc",
         "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
-        "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc",
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/opentype/ipafont-gothic/ipag.ttf",
     ]
     font = None
     for fp in font_paths:
