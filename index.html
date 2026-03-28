@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>禅園 西梅田｜四月の御献立「宗伝唐茶」造里</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Serif JP', serif;
+      background-color: #faf8f5;
+      color: #2c2c2c;
+      min-height: 100vh;
+    }
+
+    /* ===== SNS投稿カード ===== */
+    .post-container {
+      max-width: 480px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    /* ヘッダー */
+    .post-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      gap: 12px;
+    }
+
+    .post-header .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5c7a3d, #8fa868);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .post-header .account-info {
+      line-height: 1.4;
+    }
+
+    .post-header .account-name {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .post-header .account-sub {
+      font-size: 11px;
+      color: #8e8e8e;
+    }
+
+    /* メイン画像 */
+    .post-image {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #f0ece4;
+      overflow: hidden;
+    }
+
+    .post-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .post-image .placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #9e9685;
+      font-size: 14px;
+      gap: 12px;
+    }
+
+    .post-image .placeholder .icon {
+      font-size: 48px;
+      opacity: 0.4;
+    }
+
+    .post-image .placeholder p {
+      font-size: 12px;
+      opacity: 0.6;
+    }
+
+    /* 本文エリア */
+    .post-body {
+      padding: 16px;
+    }
+
+    .post-caption {
+      font-size: 14px;
+      line-height: 2;
+      letter-spacing: 0.04em;
+      white-space: pre-line;
+      color: #2c2c2c;
+    }
+
+    .post-caption .seasonal-accent {
+      color: #7a9e4a;
+      font-weight: 500;
+    }
+
+    .post-tags {
+      margin-top: 16px;
+      font-size: 12px;
+      line-height: 2;
+      color: #5c7a3d;
+      word-break: break-all;
+    }
+
+    .post-date {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #b0b0b0;
+      letter-spacing: 0.02em;
+    }
+
+    /* 季節のあしらい - 上部帯 */
+    .season-bar {
+      height: 3px;
+      background: linear-gradient(90deg, #c9d4a9, #8fa868, #5c7a3d, #8fa868, #c9d4a9);
+    }
+  </style>
+</head>
+<body>
+
+<div class="post-container">
+  <div class="season-bar"></div>
+
+  <!-- ヘッダー -->
+  <div class="post-header">
+    <div class="avatar">禅</div>
+    <div class="account-info">
+      <div class="account-name">禅園 西梅田</div>
+      <div class="account-sub">Zen-en Nishi-Umeda</div>
+    </div>
+  </div>
+
+  <!-- メイン画像エリア -->
+  <div class="post-image">
+    <!-- 画像アップロード後に下記imgタグのsrcを差し替えてください -->
+    <!-- <img src="images/202604_souden-karacha_tsukuri.jpg" alt="四月 造里 ─ 宗伝唐茶"> -->
+    <div class="placeholder" id="placeholder">
+      <span class="icon">&#127843;</span>
+      <p>造里の画像をここに配置</p>
+      <p style="font-size:11px;">images/ フォルダに画像を追加後、imgタグを有効化</p>
+    </div>
+  </div>
+
+  <!-- 投稿本文 -->
+  <div class="post-body">
+    <div class="post-caption">
+<span class="seasonal-accent">── 四月、旬を味わう一皿 ──</span>
+
+春爛漫の候、
+禅園 四月の御献立<span class="seasonal-accent">「宗伝唐茶」</span>より
+<span class="seasonal-accent">造里</span>をご紹介いたします。
+
+その日、最も旬を迎えた魚介を
+料理長が見極め、丁寧にお仕立て。
+
+口に運べば、
+ふわりと広がる海の滋味──
+<span class="seasonal-accent">春の息吹</span>をそのまま感じていただける
+一皿でございます。
+
+移ろう季節を、お箸の先から。
+禅園ならではの<span class="seasonal-accent">旬の美味</span>を
+どうぞお愉しみくださいませ。</div>
+
+    <div class="post-tags">
+#禅園 #禅園西梅田 #西梅田 #懐石料理 #日本料理
+#造里 #お造り #旬の魚 #旬を味わう #季節感
+#四月の献立 #宗伝唐茶 #春の味覚 #春爛漫
+#季節を届ける #丁寧な暮らし #和食
+#osaka #kaiseki #japanesecuisine #seasonal
+#umeda #nishiumeda #zen_en
+    </div>
+
+    <div class="post-date">2026年4月</div>
+  </div>
+
+  <div class="season-bar"></div>
+</div>
+
+</body>
+</html>
