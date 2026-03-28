@@ -355,9 +355,81 @@ def scene_ending(writer, tsukuri_top_img, sakura_img, duration_sec=4.0):
                                            CANVAS_W // 2, cy + 100,
                                            font_size=24, color=CREAM, alpha=int(text_alpha * 0.7))
 
+        writer.write(pil_to_cv2(frame_img))
+
+
+def scene_info(writer, tsukuri_top_img, sakura_img, duration_sec=6.0):
+    """店舗情報: 住所・営業時間・TEL"""
+    total_frames = int(duration_sec * FPS)
+    top_large = load_image_large(tsukuri_top_img, scale=1.2)
+    sakura_large = load_image_large(sakura_img, scale=1.2)
+
+    for i in range(total_frames):
+        t = i / total_frames
+
+        # 背景: 造里+桜ブレンドぼかし（エンディングからの連続感）
+        bg1 = ken_burns(top_large, t * 0.3, zoom_start=1.08, zoom_end=1.04, pan_x=-5, pan_y=5)
+        bg2 = ken_burns(sakura_large, t * 0.3, zoom_start=1.02, zoom_end=1.0, pan_x=0, pan_y=-5)
+        frame_img = Image.blend(bg1, bg2, 0.4)
+        frame_img = frame_img.filter(ImageFilter.GaussianBlur(radius=10))
+        frame_img = add_dark_overlay(frame_img, opacity=0.6)
+
+        # フェードイン
+        if t < 0.1:
+            fade = ease_in_out(t / 0.1)
+            dark = add_dark_overlay(frame_img, opacity=1.0 - fade)
+            frame_img = dark
+
+        cx = CANVAS_W // 2
+        # 全テキストを同時にフェードイン、画面中央にまとめて配置
+        # 全体の高さ約700px → 中央配置で top = (1350 - 700) / 2 = 325
+        base_y = 280
+
+        alpha = int(255 * ease_in_out(max(0, (t - 0.08) / 0.35)))
+        if alpha > 0:
+            # --- 住所セクション ---
+            frame_img = draw_decorative_line(frame_img, base_y, margin_ratio=0.2, alpha=alpha)
+            frame_img = draw_text_centered(frame_img, "- Access -", cx, base_y + 22,
+                                           font_size=20, color=GOLD, alpha=alpha)
+            frame_img = draw_text_centered(frame_img, "〒530-0001", cx, base_y + 65,
+                                           font_size=18, color=CREAM, alpha=int(alpha * 0.7))
+            frame_img = draw_text_centered(frame_img, "大阪府大阪市北区梅田2-5-25", cx, base_y + 100,
+                                           font_size=23, color=CREAM, alpha=alpha)
+            frame_img = draw_text_centered(frame_img, "ハービスPLAZA B2F", cx, base_y + 138,
+                                           font_size=23, color=CREAM, alpha=alpha)
+            frame_img = draw_text_centered(frame_img, "TEL  06-6457-1002", cx, base_y + 185,
+                                           font_size=25, color=GOLD, alpha=alpha)
+
+            # --- 営業時間セクション ---
+            sec2_y = base_y + 240
+            frame_img = draw_decorative_line(frame_img, sec2_y, margin_ratio=0.2, alpha=alpha)
+            frame_img = draw_text_centered(frame_img, "- Hours -", cx, sec2_y + 22,
+                                           font_size=20, color=GOLD, alpha=alpha)
+
+            frame_img = draw_text_centered(frame_img, "Lunch", cx, sec2_y + 68,
+                                           font_size=19, color=GOLD, alpha=int(alpha * 0.8))
+            frame_img = draw_text_centered(frame_img, "11:00 - 14:45  ( L.O. 14:00 )", cx, sec2_y + 100,
+                                           font_size=23, color=CREAM, alpha=alpha)
+
+            frame_img = draw_text_centered(frame_img, "Dinner", cx, sec2_y + 150,
+                                           font_size=19, color=GOLD, alpha=int(alpha * 0.8))
+            frame_img = draw_text_centered(frame_img, "17:30 - 22:30", cx, sec2_y + 182,
+                                           font_size=23, color=CREAM, alpha=alpha)
+            frame_img = draw_text_centered(frame_img, "L.O. 21:00 / food  21:30 / drink", cx, sec2_y + 218,
+                                           font_size=17, color=CREAM, alpha=int(alpha * 0.7))
+
+            # --- 定休日 ---
+            sec3_y = sec2_y + 265
+            frame_img = draw_decorative_line(frame_img, sec3_y, margin_ratio=0.2, alpha=alpha)
+            frame_img = draw_text_centered(frame_img, "定休日  不定休", cx, sec3_y + 28,
+                                           font_size=21, color=CREAM, alpha=alpha)
+            frame_img = draw_text_centered(frame_img, "( ハービスPLAZA定休日に準ずる )", cx, sec3_y + 65,
+                                           font_size=16, color=CREAM, alpha=int(alpha * 0.6))
+            frame_img = draw_decorative_line(frame_img, sec3_y + 105, margin_ratio=0.2, alpha=alpha)
+
         # フェードアウト
-        if t > 0.85:
-            fade_out = ease_in_out((1 - t) / 0.15)
+        if t > 0.88:
+            fade_out = ease_in_out((1 - t) / 0.12)
             dark = add_dark_overlay(frame_img, opacity=1.0 - fade_out)
             frame_img = dark
 
@@ -389,24 +461,27 @@ def main():
 
     print("\n--- 動画生成開始（全シーン画像背景版） ---")
 
-    print("Scene 1/5: オープニング（桜ぼかし背景）...")
+    print("Scene 1/6: オープニング（桜ぼかし背景）...")
     scene_opening(writer, sakura_path, 3.5)
 
-    print("Scene 2/5: 桜のあしらい...")
+    print("Scene 2/6: 桜のあしらい...")
     scene_sakura(writer, sakura_path, 3.5)
 
-    print("Scene 3/5: 造里（横アングル）...")
+    print("Scene 3/6: 造里（横アングル）...")
     scene_tsukuri_side(writer, tsukuri_side, sakura_path, 4.5)
 
-    print("Scene 4/5: 造里（真上アングル）...")
+    print("Scene 4/6: 造里（真上アングル）...")
     scene_tsukuri_top(writer, tsukuri_top, tsukuri_side, 4.5)
 
-    print("Scene 5/5: エンディング（造里+桜ぼかし背景）...")
+    print("Scene 5/6: エンディング（造里+桜ぼかし背景）...")
     scene_ending(writer, tsukuri_top, sakura_path, 4.0)
+
+    print("Scene 6/6: 店舗情報...")
+    scene_info(writer, tsukuri_top, sakura_path, 6.0)
 
     writer.release()
 
-    total_sec = 3.5 + 3.5 + 4.5 + 4.5 + 4.0
+    total_sec = 3.5 + 3.5 + 4.5 + 4.5 + 4.0 + 6.0
     print(f"\n完成: {OUTPUT_PATH}")
     print(f"解像度: {CANVAS_W}x{CANVAS_H} / FPS: {FPS}")
     print(f"長さ: 約{total_sec}秒")
