@@ -206,7 +206,7 @@ def scene_opening(writer, sakura_img, duration_sec=3.5):
             frame_img = draw_text_centered(frame_img, "─  旬 を 、 味 わ う  ─",
                                            CANVAS_W // 2, cy + 20,
                                            font_size=32, color=CREAM, alpha=text_alpha)
-            frame_img = draw_text_centered(frame_img, "禅 園  西 梅 田",
+            frame_img = draw_text_centered(frame_img, "西 梅 田  禅 園",
                                            CANVAS_W // 2, cy + 80,
                                            font_size=24, color=SOFT_PINK, alpha=int(text_alpha * 0.7))
 
@@ -344,15 +344,13 @@ def scene_ending(writer, tsukuri_top_img, sakura_img, duration_sec=4.0):
         # テキスト
         text_alpha = int(255 * ease_in_out(max(0, (t - 0.1) / 0.45)))
         if text_alpha > 0:
-            frame_img = draw_text_centered(frame_img, "禅  園", CANVAS_W // 2, cy - 100,
-                                           font_size=60, color=GOLD, alpha=text_alpha)
-            frame_img = draw_text_centered(frame_img, "西 梅 田", CANVAS_W // 2, cy - 20,
-                                           font_size=32, color=CREAM, alpha=text_alpha)
+            frame_img = draw_text_centered(frame_img, "西 梅 田  禅 園", CANVAS_W // 2, cy - 60,
+                                           font_size=52, color=GOLD, alpha=text_alpha)
             frame_img = draw_text_centered(frame_img, "移ろう季節を、お箸の先から。",
-                                           CANVAS_W // 2, cy + 40,
+                                           CANVAS_W // 2, cy + 20,
                                            font_size=28, color=SOFT_PINK, alpha=text_alpha)
             frame_img = draw_text_centered(frame_img, "四 月 の 御 献 立",
-                                           CANVAS_W // 2, cy + 100,
+                                           CANVAS_W // 2, cy + 80,
                                            font_size=24, color=CREAM, alpha=int(text_alpha * 0.7))
 
         writer.write(pil_to_cv2(frame_img))
